@@ -1,12 +1,12 @@
 "use client";
 import { useMachine } from "@xstate/react";
-import { RegisterMachine } from "../features/state";
-import { InfoForm } from "../features/userInfo";
-import { UserAddressScreen } from "../features/addressInfo;
-import { TalentForm } from "../features/talent";
-import { ReviewScreen } from "../features/reviewScreen";
-import { SubmittedScreen } from "../features/submitedScreen";
-import { FactForm } from "../features/funFacts";
+import { RegisterMachine } from "@/machines/machine";
+import { InfoForm } from "../components/userInfo";
+import { UserAddressScreen } from "../components/addressInfo";
+import { TalentForm } from "../components/talent";
+import { ReviewScreen } from "../components/reviewScreen";
+import { SubmittedScreen } from "../components/submitedScreen";
+import { FactForm } from "../components/funFacts";
 
 export function Register() {
   const [state, send] = useMachine(RegisterMachine);

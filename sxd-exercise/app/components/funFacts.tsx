@@ -4,7 +4,7 @@ import {
     FactsContext,
     FactsTypestate,
     ConfirmFactsEvent
-  } from "./state";
+  } from "../../machines/machine";
 
   import { Formik, Form, Field } from "formik";
   

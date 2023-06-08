@@ -4,7 +4,7 @@ import {
     UserAddressContext,
     UserAddressTypestate,
     ConfirmUserAddressEvent
-  } from "./state";
+  } from "../../machines/machine";
 
   import { Formik, Form, Field } from "formik";
   

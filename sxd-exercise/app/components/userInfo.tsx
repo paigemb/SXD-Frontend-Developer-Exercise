@@ -4,7 +4,7 @@ import {
     BasicInfoContext,
     BasicInfoTypestate,
     ConfirmBasicInfoEvent
-  } from "./state";
+  } from "../../machines/machine";
 
   import { Formik, Form, Field } from "formik";
   

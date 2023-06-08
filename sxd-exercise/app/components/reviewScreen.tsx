@@ -1,4 +1,4 @@
-import { ReviewTypestate, ConfirmReviewEvent } from "./state";
+import { ReviewTypestate, ConfirmReviewEvent } from "../../machines/machine";
 import { Formik, Form } from "formik";
 import { Fragment } from "react";
 

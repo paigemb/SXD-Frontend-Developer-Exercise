@@ -1,4 +1,4 @@
-import { SubmittedTypestate } from "./state";
+import { SubmittedTypestate } from "../../machines/machine";
 
 export interface SubmittedScreenProps {
   state: SubmittedTypestate;
