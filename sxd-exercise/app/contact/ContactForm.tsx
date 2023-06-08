@@ -1,5 +1,85 @@
 "use client";
+import { FormEvent, useState } from "react";
+import { AccountForm } from "../components/AccountForm";
+import { AddressForm } from "../components/AddressForm";
+import { UserForm } from "../components/UserForm";
+import { useMultistepForm } from "../components/useMultistepForm";
 
+export default function ContactForm() {
+    type FormData = {
+        firstName: string
+        lastName: string
+        age: string
+        street: string
+        city: string
+        state: string
+        zip: string
+        email: string
+        password: string
+    }
+
+    const INITIAL_DATA: FormData = {
+        firstName: "",
+        lastName: "",
+        age: "",
+        street: "",
+        city: "",
+        state: "",
+        zip: "",
+        email: "",
+        password: "" 
+    }
+
+
+    const [data, setData] = useState(INITIAL_DATA)
+    function updateFields(fields: Partial<FormData>) {
+        setData (prev => {
+            return { ...prev, ...fields}
+        })
+
+    }
+    const { steps, currentStepIndex, step, back, next} = 
+    useMultistepForm([
+    <UserForm {...data} updateFields={updateFields} />, 
+    <AddressForm {...data} updateFields={updateFields}/>, 
+    <AccountForm {...data} updateFields={updateFields}/>])
+
+    function onSubmit(e: FormEvent) {
+        e.preventDefault() //preven default refreshing
+        if (currentStepIndex != steps.length -1) return next()
+        alert("Successfull Account Creation") //confirmation page
+    }
+
+    return (
+        <><div style={{
+            position: "relative",
+            background: "white",
+            border: "1px solid black",
+            padding: "2rem",
+            margin: "1rem",
+            borderRadius: ".5rem",
+            fontFamily: "Arial"
+        }} ><form onSubmit={onSubmit}>
+            <div style={{position: "absolute", top: ".5rem", right: ".5rem"}}>
+                {currentStepIndex + 1} / {steps.length}
+            </div>
+            {step}
+            <div style ={{ 
+                marginTop: "1rem",
+                display: "flex",
+                gap: ".5rem",
+                justifyContent: "flex-end"}}>
+                    {currentStepIndex !== 0 && <button type="button" onClick={back}>Back</button> }
+                    <button type="submit" >
+                        {currentStepIndex != steps.length -1 ? "Next" : "Finish"}</button>
+                </div>
+        </form>
+        </div></>
+    )
+}
+
+
+/*
 import { useMachine } from "@xstate/react";
 import { useEffect, useState } from "react";
 import { stateMachine } from "../../machines/machine";
@@ -37,7 +117,7 @@ export default function ContactForm() {
             setLoading(true);
         }*/
 
-    
+  /*  
     }
 
 
@@ -77,4 +157,4 @@ export default function ContactForm() {
                 className="px-4 py-2 w-40 bg-gray-700 disabled:bg-gray-400 disabled:text-gray-100 text-white font-medium mt-4">Submit</button>
             </form>
     )
-}
+}*/
