@@ -1,8 +1,8 @@
 import {UserData} from './UserData.types';
 import {EventObject} from 'xstate';
 
-export interface UserDataMachineCOntext {
-  userData: UserData;
+export interface UserDataMachineContext {
+  userData: UserData | null;
   error: boolean;
   errorMsg: string;
 }

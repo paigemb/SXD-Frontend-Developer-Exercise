@@ -1,13 +1,17 @@
 //Pass React components in array
-import { ReactElement, useState } from "react";
+//import { userDataMachine } from "@/machines/userDataMachine";
+import { ReactElement, useEffect, useState } from "react";
+import { useMachine } from "@xstate/react"
+import { UserDataStates } from "@/machines/userDataMachine.types";
 
 export function useMultistepForm(steps: ReactElement[]) {
     const [currentStepIndex, setCurrentStepIndex] = useState(0)
-
+    //const [current, send] = useMachine(userDataMachine)
+   
     function next() {
-   setCurrentStepIndex(i => {
-    if (i >= steps.length -1) return i
-    return i + 1
+    setCurrentStepIndex(i => {
+        if (i >= steps.length -1) return i
+        return i + 1
    })
 }
 

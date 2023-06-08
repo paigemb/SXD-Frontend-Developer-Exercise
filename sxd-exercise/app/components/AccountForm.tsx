@@ -1,3 +1,5 @@
+import multiStepFormMachine from "@/machines/machine";
+import { useMachine } from "@xstate/react";
 import { FormWrapper } from "./FormWrapper";
 
 type AccountData = {
@@ -10,6 +12,7 @@ type AccountFormProps = AccountData & {
 }
 
 export function AccountForm({email, password, updateFields}: AccountFormProps) {
+    const [ current, send] = useMachine(multiStepFormMachine);
     return (
         <FormWrapper title="Account Creation">
         <label>Email</label>

@@ -1,4 +1,4 @@
-import { createMachine, assign, EventObject, Machine } from "xstate";
+/*import { createMachine, assign, EventObject, Machine } from "xstate";
 import { UserData } from "./UserData.types";
 import { UpdateEvents, UpdateMachineContext, UpdateMachineEvents, UpdateMachineStates, UpdateStates } from "./updateMachine.types";
 
@@ -36,7 +36,7 @@ export const updateMachine = createMachine({
         type: "final",
       },
     },
-  })()*/
+  })()
 
   export const updateMachine = Machine<
   UpdateMachineContext,
@@ -53,11 +53,12 @@ export const updateMachine = createMachine({
   states: {
     [UpdateStates.fetch]: {
       on: {
-        [UpdateEvents.NEXT]: { //whenever we send an even of type 'next' to the machine that is currently in fetch state, transition to edit
+        [UpdateEvents.NEXT]: { //whenever we send an event of type 'next' to the machine that is currently in fetch state, transition to edit
           target: UpdateStates.edit,
           actions: assign({
             error: _ => false,
             errorMsg: _ => '',
+            userData: (_, {userData}) => userData,
           }),
         },
         [UpdateEvents.ERROR]: {
@@ -122,4 +123,4 @@ export const updateMachine = createMachine({
       type: 'final',
     },
   },
-});
+});*/

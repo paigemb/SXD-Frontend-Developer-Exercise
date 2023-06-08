@@ -4,21 +4,14 @@ import { AccountForm } from "../components/AccountForm";
 import { AddressForm } from "../components/AddressForm";
 import { UserForm } from "../components/UserForm";
 import { useMultistepForm } from "../components/useMultistepForm";
+import { UserData } from "@/machines/UserData.types";
+//import { userDataMachine } from "@/machines/userDataMachine";
+import { useMachine } from "@xstate/react"
 
 export default function ContactForm() {
-    type FormData = {
-        firstName: string
-        lastName: string
-        age: string
-        street: string
-        city: string
-        state: string
-        zip: string
-        email: string
-        password: string
-    }
+    //const [current, send] = useMachine(userDataMachine)
 
-    const INITIAL_DATA: FormData = {
+    const INITIAL_DATA: UserData = {
         firstName: "",
         lastName: "",
         age: "",
@@ -32,17 +25,20 @@ export default function ContactForm() {
 
 
     const [data, setData] = useState(INITIAL_DATA)
-    function updateFields(fields: Partial<FormData>) {
+
+    function updateFields(fields: Partial<UserData>) {
         setData (prev => {
             return { ...prev, ...fields}
         })
 
     }
+
     const { steps, currentStepIndex, step, back, next} = 
     useMultistepForm([
-    <UserForm {...data} updateFields={updateFields} />, 
-    <AddressForm {...data} updateFields={updateFields}/>, 
-    <AccountForm {...data} updateFields={updateFields}/>])
+    <UserForm />, 
+    <AddressForm />]) 
+    //<AccountForm {...data} updateFields={updateFields}/>])
+
 
     function onSubmit(e: FormEvent) {
         e.preventDefault() //preven default refreshing

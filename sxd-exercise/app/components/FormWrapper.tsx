@@ -4,8 +4,6 @@
 import {ReactNode } from "react"
 
 type FormWrapperProps = {
-    //backBtnAction: () => void
-    //nextBtnAction: () => void
     title: string
     children: ReactNode
 }
