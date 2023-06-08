@@ -115,7 +115,7 @@ import {
                 </Field>
                 
             </div>
-
+            <button type="button" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Back</button>
             <button type="submit" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Next</button>
           </Form>
          

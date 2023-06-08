@@ -29,7 +29,9 @@ export function Register() {
   }
     else if (state.matches("review")) {
     return <ReviewScreen state={state} onSubmit={(event) => send(event)} />;
-  } else if (state.matches("submitted")) {
+  } 
+ 
+  else if (state.matches("submitted")) {
     return <SubmittedScreen state={state} />;
   } else {
     throw new Error("Form has entered unknown state.");

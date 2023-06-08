@@ -73,6 +73,7 @@ import {
             <label  className="font-bold text-gray-800 p-2" htmlFor="zipcode">Zipcode</label>
             <Field id="zip" name="zip" className="p-2 bg-gray-50 border border-gray-100" required />
             </div>
+            <button type="button" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Back</button>
             <button type="submit" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Next</button>
           </Form>
         </Formik>

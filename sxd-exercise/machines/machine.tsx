@@ -67,11 +67,16 @@ export interface ConfirmReviewEvent {
   type: "CONFIRM_REVIEW";
 }
 
+export interface BackEvent {
+  type: "BACK";
+}
+
 export type RegisterEvent =
   | ConfirmBasicInfoEvent
   | ConfirmUserAddressEvent
   | ConfirmFactsEvent
   | ConfirmTalentEvent
+  | BackEvent
   | ConfirmReviewEvent;
 
 ////////////////////////////////////
@@ -106,6 +111,11 @@ export interface ReviewTypestate {
   context: Required<RegisterContext>;
 }
 
+export interface BackTypestate {
+  value: "back";
+  context: RegisterContext & Required<Pick<RegisterContext, "talent">> & Required<Pick<RegisterContext, "facts">> & Required<Pick<RegisterContext, "userAddress">> & Required<Pick<RegisterContext, "basicInfo">>
+}
+
 export interface SubmittedTypestate {
   value: "submitted";
   context: Required<RegisterContext>;
@@ -118,6 +128,7 @@ export interface RegisterTypestate {
   review: ReviewTypestate;
   talent: TalentTypestate;
   submitted: SubmittedTypestate;
+  back: BackTypestate;
 }
 
 ////////////////////////////////////
@@ -160,6 +171,9 @@ export const RegisterMachine = createMachine<
           })),
           // Transition to the `facts` state next
           target: "facts"
+        },
+        BACK: {
+          target: "basicInfo"
         }
       }
     },
@@ -172,6 +186,9 @@ export const RegisterMachine = createMachine<
             })),
             // Transition to the `talent` state next
             target: "talent"
+          },
+          BACK: {
+            target: 'userAddress'
           }
         }
       },
@@ -184,6 +201,9 @@ export const RegisterMachine = createMachine<
             })),
             // Transition to the `review` state next
             target: "review"
+          },
+          BACK: {
+            target: 'facts'
           }
         }
       },
@@ -192,6 +212,9 @@ export const RegisterMachine = createMachine<
         CONFIRM_REVIEW: {
           // Transition to the `submitted` state next
           target: "submitted"
+        },
+        BACK: {
+          target: 'talent'
         }
       }
     },
