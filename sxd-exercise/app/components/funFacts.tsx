@@ -46,7 +46,7 @@ export function FactForm({ state, onSubmit, onClick }: FactsFormProps) {
         fontFamily: "Arial",
       }}
     >
-      <h1>Here's your chance to tell us more about yourself!</h1>
+      <h1>Here is your chance to tell us more about yourself!</h1>
 
       <Formik<FactsContext>
         initialValues={initialValues}
@@ -125,7 +125,7 @@ export function FactForm({ state, onSubmit, onClick }: FactsFormProps) {
               <option value="ESFJ">ESFJ</option>
               <option value="ENFJ">ENFJ</option>
               <option value="ENTJ">ENTJ</option>
-              <option value="unknown">I don't know</option>
+              <option value="unknown">I do not know</option>
             </Field>
           </div>
 
@@ -152,7 +152,7 @@ export function FactForm({ state, onSubmit, onClick }: FactsFormProps) {
               <option value="Capricorn">Capricorn</option>
               <option value="Aquarius">Aquarius</option>
               <option value="Pisces">Pisces</option>
-              <option value="Unknown">I don't know</option>
+              <option value="Unknown">I do not know</option>
             </Field>
           </div>
           <div className="w-full flex flex col p-4">

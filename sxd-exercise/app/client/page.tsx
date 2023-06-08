@@ -10,12 +10,12 @@ export default function HomePage() {
         Register for the Talent Show!
       </div>
       <p style={{ fontSize: "15px" }}>
-        Thank you so much for your interest in joining this year's talent show.
-        We expect a range of participants at all skill levels, so don't hesitate
+        Thank you so much for your interest in joining our talent show.
+        We expect a range of participants at all skill levels, so do not hesitate
         to sign up!
       </p>
       <em style={{ fontSize: "10px" }}>
-        *Due to last year's circumstances, juggling will no longer be permitted
+        Due to previous circumstances, juggling will no longer be permitted
         as a talent
       </em>
       <Register />
