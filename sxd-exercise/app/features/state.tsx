@@ -11,7 +11,7 @@ export interface BasicInfoContext {
   email: string; //text input
 }
 
-export interface ShippingAddressContext {
+export interface UserAddressContext {
   street1: string; //text input
   street2?: string; //optional text input
   city: string; //text input
@@ -28,9 +28,9 @@ export interface FactsContext {
     extra?: string; //optional text input
 }
 
-export interface CheckoutContext {
+export interface RegisterContext {
     basicInfo?: BasicInfoContext; 
-    shippingAddress?: ShippingAddressContext;
+    userAddress?: UserAddressContext;
     facts?: FactsContext;
   }
 ////////////////////////////////////
@@ -42,9 +42,9 @@ export interface ConfirmBasicInfoEvent {
   value: BasicInfoContext;
 }
 
-export interface ConfirmShippingAddressEvent {
-  type: "CONFIRM_SHIPPING_ADDRESS";
-  value: ShippingAddressContext;
+export interface ConfirmUserAddressEvent {
+  type: "CONFIRM_USER_ADDRESS";
+  value: UserAddressContext;
 }
 
 export interface ConfirmFactsEvent {
@@ -57,9 +57,9 @@ export interface ConfirmReviewEvent {
   type: "CONFIRM_REVIEW";
 }
 
-export type CheckoutEvent =
+export type RegisterEvent =
   | ConfirmBasicInfoEvent
-  | ConfirmShippingAddressEvent
+  | ConfirmUserAddressEvent
   | ConfirmFactsEvent
   | ConfirmReviewEvent;
 
@@ -70,34 +70,34 @@ export type CheckoutEvent =
 
 export interface BasicInfoTypestate {
   value: "basicInfo";
-  //nothing has been saved yet, only need checkout
-  context: CheckoutContext;
+  //nothing has been saved yet, only need Register
+  context: RegisterContext;
 }
 
-export interface ShippingAddressTypestate {
-  value: "shippingAddress";
+export interface UserAddressTypestate {
+  value: "userAddress";
   //requires previous information 
-  context: CheckoutContext & Required<Pick<CheckoutContext, "basicInfo">>;
+  context: RegisterContext & Required<Pick<RegisterContext, "basicInfo">>;
 }
 
 export interface FactsTypestate {
     value: "facts";
-    context: CheckoutContext & Required<Pick<CheckoutContext, "shippingAddress">> & Required<Pick<CheckoutContext, "basicInfo">>
+    context: RegisterContext & Required<Pick<RegisterContext, "userAddress">> & Required<Pick<RegisterContext, "basicInfo">>
 }
 
 export interface ReviewTypestate {
   value: "review";
-  context: Required<CheckoutContext>;
+  context: Required<RegisterContext>;
 }
 
 export interface SubmittedTypestate {
   value: "submitted";
-  context: Required<CheckoutContext>;
+  context: Required<RegisterContext>;
 }
 
-export interface CheckoutTypestate {
+export interface RegisterTypestate {
   basicInfo: BasicInfoTypestate;
-  shippingAddress: ShippingAddressTypestate;
+  userAddress: UserAddressTypestate;
   facts: FactsTypestate;
   review: ReviewTypestate;
   submitted: SubmittedTypestate;
@@ -107,15 +107,16 @@ export interface CheckoutTypestate {
 // Putting It All Together!
 ////////////////////////////////////
 
-export const checkoutMachine = createMachine<
-  CheckoutContext,
-  CheckoutEvent,
-  CheckoutTypestate[keyof CheckoutTypestate]
+export const RegisterMachine = createMachine<
+  RegisterContext,
+  RegisterEvent,
+  RegisterTypestate[keyof RegisterTypestate]
 >({
-  id: "checkout",
+  id: "Register",
   context: {
     basicInfo: undefined,
-    shippingAddress: undefined
+    userAddress: undefined,
+    facts: undefined
     // ...
   },
   // Start at the basic info state
@@ -128,17 +129,17 @@ export const checkoutMachine = createMachine<
             ...ctx,
             basicInfo: evt.value
           })),
-          // Transition to the `shippingAddress` state next
-          target: "shippingAddress"
+          // Transition to the `userAddress` state next
+          target: "userAddress"
         }
       }
     },
-    shippingAddress: {
+    userAddress: {
       on: {
-        CONFIRM_SHIPPING_ADDRESS: {
+        CONFIRM_USER_ADDRESS: {
           actions: assign((ctx, evt) => ({
             ...ctx,
-            shippingAddress: evt.value
+            userAddress: evt.value
           })),
           // Transition to the `facts` state next
           target: "facts"

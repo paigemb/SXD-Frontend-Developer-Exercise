@@ -33,7 +33,7 @@ import {
         borderRadius: ".5rem",
         fontFamily: "Arial"}}>
 
-        <h1>Please enter your name, age, and email address:</h1>
+        <h1>First, please enter your name, age, and email address:</h1>
 
         <Formik<BasicInfoContext>
           initialValues={initialValues}

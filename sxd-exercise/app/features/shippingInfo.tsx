@@ -1,28 +1,28 @@
 /*Component for collecting shipping information*/
 
 import {
-    ShippingAddressContext,
-    ShippingAddressTypestate,
-    ConfirmShippingAddressEvent
+    UserAddressContext,
+    UserAddressTypestate,
+    ConfirmUserAddressEvent
   } from "./state";
 
   import { Formik, Form, Field } from "formik";
   
-  export interface ShippingAddressScreenProps {
-    state: ShippingAddressTypestate;
-    onSubmit(event: ConfirmShippingAddressEvent): void;
+  export interface UserAddressScreenProps {
+    state: UserAddressTypestate;
+    onSubmit(event: ConfirmUserAddressEvent): void;
   }
   
-  export function ShippingAddressScreen({
+  export function UserAddressScreen({
     state,
     onSubmit
-  }: ShippingAddressScreenProps) {
-    const initialValues: ShippingAddressContext = {
-      street1: state.context.shippingAddress?.street1 ?? "",
-      street2: state.context.shippingAddress?.street2,
-      city: state.context.shippingAddress?.city ?? "",
-      state: state.context.shippingAddress?.state ?? "",
-      zip: state.context.shippingAddress?.zip ?? ""
+  }: UserAddressScreenProps) {
+    const initialValues: UserAddressContext = {
+      street1: state.context.userAddress?.street1 ?? "",
+      street2: state.context.userAddress?.street2,
+      city: state.context.userAddress?.city ?? "",
+      state: state.context.userAddress?.state ?? "",
+      zip: state.context.userAddress?.zip ?? ""
     };
   
     return (
@@ -35,13 +35,13 @@ import {
         borderRadius: ".5rem",
         fontFamily: "Arial"}}>
 
-        <h1>Please enter your shipping Address</h1>
+        <h1>Please enter your address</h1>
 
-        <Formik<ShippingAddressContext>
+        <Formik<UserAddressContext>
           initialValues={initialValues}
           onSubmit={(values) => {
             onSubmit({
-              type: "CONFIRM_SHIPPING_ADDRESS",
+              type: "CONFIRM_USER_ADDRESS",
               value: {
                 street1: values.street1,
                 street2: values.street2,

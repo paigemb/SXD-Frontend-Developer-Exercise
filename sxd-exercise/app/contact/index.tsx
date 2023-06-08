@@ -1,20 +1,20 @@
 "use client";
 import { useMachine } from "@xstate/react";
-import { checkoutMachine } from "../features/state";
+import { RegisterMachine } from "../features/state";
 import { InfoForm } from "../features/userInfo";
-import { ShippingAddressScreen } from "../features/shippingInfo";
+import { UserAddressScreen } from "../features/shippingInfo";
 import { ReviewScreen } from "../features/reviewScreen";
 import { SubmittedScreen } from "../features/submitedScreen";
 import { FactForm } from "../features/funFacts";
 
-export function Checkout() {
-  const [state, send] = useMachine(checkoutMachine);
+export function Register() {
+  const [state, send] = useMachine(RegisterMachine);
 
   if (state.matches("basicInfo")) {
     return <InfoForm state={state} onSubmit={(event) => send(event)} />;
-  } else if (state.matches("shippingAddress")) {
+  } else if (state.matches("userAddress")) {
     return (
-      <ShippingAddressScreen state={state} onSubmit={(event) => send(event)} />
+      <UserAddressScreen state={state} onSubmit={(event) => send(event)} />
     );
   } else if (state.matches("facts")) {
     return (

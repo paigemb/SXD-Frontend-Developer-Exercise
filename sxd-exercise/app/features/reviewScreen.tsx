@@ -40,19 +40,19 @@ export function ReviewScreen({ state, onSubmit }: ReviewScreenProps) {
           <h4 className="font-bold text-gray-800 p-2 text-center">Shipping Address</h4>
           <dl>
             <dt className="font-bold text-gray-800 p-2">Street</dt>
-            <dd>{state.context.shippingAddress.street1}</dd>
-            {state.context.shippingAddress.street2 && (
+            <dd>{state.context.userAddress.street1}</dd>
+            {state.context.userAddress.street2 && (
               <Fragment>
                 <dt className="font-bold text-gray-800 p-2">Street 2</dt>
-                <dd>{state.context.shippingAddress.street2}</dd>
+                <dd>{state.context.userAddress.street2}</dd>
               </Fragment>
             )}
             <dt className="font-bold text-gray-800 p-2">City</dt>
-            <dd>{state.context.shippingAddress.city}</dd>
+            <dd>{state.context.userAddress.city}</dd>
             <dt className="font-bold text-gray-800 p-2">State</dt>
-            <dd>{state.context.shippingAddress.state}</dd>
+            <dd>{state.context.userAddress.state}</dd>
             <dt className="font-bold text-gray-800 p-2">Zipcode</dt>
-            <dd>{state.context.shippingAddress.zip}</dd>
+            <dd>{state.context.userAddress.zip}</dd>
           </dl>
 
           <button type="submit" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Submit</button>
