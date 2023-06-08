@@ -1,9 +1,10 @@
+//xstate machine
+
 import { assign, createMachine } from "xstate";
 
-////////////////////////////////////
 // Context
-////////////////////////////////////
 
+/*Context for User's info */
 export interface BasicInfoContext {
   firstName: string; //text input
   lastName: string; //text input
@@ -11,6 +12,7 @@ export interface BasicInfoContext {
   email: string; //text input
 }
 
+/*Context for User's address */
 export interface UserAddressContext {
   street1: string; //text input
   street2?: string; //optional text input
@@ -19,6 +21,7 @@ export interface UserAddressContext {
   zip: string; //text input
 }
 
+/*Context for User's fun facts */
 export interface FactsContext {
   favoriteMovie: string; //text input
   favoriteBook: string; //text input
@@ -27,19 +30,20 @@ export interface FactsContext {
   felonies: string; //select input
 }
 
+/*Context for User's talent */
 export interface TalentContext {
   talent: string; //text area input
 }
 
+/*Context for registering user */
 export interface RegisterContext {
   basicInfo?: BasicInfoContext;
   userAddress?: UserAddressContext;
   facts?: FactsContext;
   talent?: TalentContext;
 }
-////////////////////////////////////
-// Events
-////////////////////////////////////
+
+// Events --> transitions from one state to next
 
 export interface ConfirmBasicInfoEvent {
   type: "CONFIRM_BASIC_INFO";
@@ -65,6 +69,7 @@ export interface ConfirmReviewEvent {
   type: "CONFIRM_REVIEW";
 }
 
+/*Event to move backwards through the form */
 export interface BackEvent {
   type: "BACK";
 }
@@ -77,10 +82,8 @@ export type RegisterEvent =
   | BackEvent
   | ConfirmReviewEvent;
 
-////////////////////////////////////
 // Typestates
 // define current form of machine's global contex in given state
-////////////////////////////////////
 
 export interface BasicInfoTypestate {
   value: "basicInfo";
@@ -114,6 +117,7 @@ export interface ReviewTypestate {
   context: Required<RegisterContext>;
 }
 
+/*Type needs everything before it saved so we can move backwards */
 export interface BackTypestate {
   value: "back";
   context: RegisterContext &
@@ -138,9 +142,7 @@ export interface RegisterTypestate {
   back: BackTypestate;
 }
 
-////////////////////////////////////
-// Putting It All Together!
-////////////////////////////////////
+// State Machine
 
 export const RegisterMachine = createMachine<
   RegisterContext,
@@ -166,7 +168,7 @@ export const RegisterMachine = createMachine<
           })),
           // Transition to the `userAddress` state next
           target: "userAddress",
-        },
+        }, //no back button because it's the first step
       },
     },
     userAddress: {
@@ -226,7 +228,7 @@ export const RegisterMachine = createMachine<
       },
     },
     submitted: {
-      type: "final",
+      type: "final", //no forward steps
     },
   },
 });

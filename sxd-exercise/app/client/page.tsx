@@ -1,3 +1,6 @@
+// component that holds form
+
+/*Imports */
 import { Register } from ".";
 
 export default function HomePage() {

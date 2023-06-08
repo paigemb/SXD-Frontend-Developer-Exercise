@@ -1,5 +1,6 @@
-/*Component for collecting user's info */
+/*Third Component for collecting user's fun facts */
 
+/*Imports */
 import {
   FactsContext,
   FactsTypestate,
@@ -21,7 +22,7 @@ export function FactForm({ state, onSubmit, onClick }: FactsFormProps) {
   const initialValues: FactsContext = {
     favoriteMovie: state.context.facts?.favoriteMovie ?? "",
     favoriteBook: state.context.facts?.favoriteBook ?? "",
-    personalityType: state.context.facts?.personalityType ?? "ISTJ",
+    personalityType: state.context.facts?.personalityType ?? "ISTJ", //use first values as default
     zodiac: state.context.facts?.zodiac ?? "Aries",
     felonies: state.context.facts?.felonies ?? "One",
   };

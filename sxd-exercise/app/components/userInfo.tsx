@@ -1,5 +1,6 @@
-/*Component for collecing user's name and email */
+/*First form component for collecing user's name and email */
 
+/*Imports */
 import {
   BasicInfoContext,
   BasicInfoTypestate,
@@ -39,7 +40,7 @@ export function InfoForm({ state, onSubmit }: InfoFormProps) {
       <Formik<BasicInfoContext>
         initialValues={initialValues}
         onSubmit={(values) => {
-          // Submit the `CONFIRM_BASIC_INFO` event on form submission
+          // Submit the event on form submission
           onSubmit({
             type: "CONFIRM_BASIC_INFO",
             value: {

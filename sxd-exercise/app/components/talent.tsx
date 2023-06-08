@@ -1,5 +1,6 @@
-/*Component for collecing user's name and email */
+/*Fourth omponent for collecing user's talent info */
 
+/*Imports */
 import {
   TalentContext,
   TalentTypestate,
@@ -41,12 +42,11 @@ export function TalentForm({ state, onSubmit, onClick }: InfoFormProps) {
         fontFamily: "Arial",
       }}
     >
-      <h1>Tell us a bit about your talent:</h1>
+      <h1>Lastly, tell us a bit about your talent:</h1>
 
       <Formik<TalentContext>
         initialValues={initialValues}
         onSubmit={(values) => {
-          // Submit the `CONFIRM_TALENT` event on form submission
           onSubmit({
             type: "CONFIRM_TALENT",
             value: {
@@ -56,7 +56,7 @@ export function TalentForm({ state, onSubmit, onClick }: InfoFormProps) {
         }}
       >
         <Form className="form p-4">
-          <div className="w-full flex flex col p-4">
+          <div className="p-4">
             <label className="font-bold text-gray-800 p-2" htmlFor="talent">
               {" "}
             </label>
@@ -68,6 +68,11 @@ export function TalentForm({ state, onSubmit, onClick }: InfoFormProps) {
               required
             />
           </div>
+          <em style={{ fontSize: "13px" }}>
+            {" "}
+            As a reminder, please refrain from juggling and juggling-like
+            activities
+          </em>
           <div className="p-8">
             <div className="float-left  ">
               <button

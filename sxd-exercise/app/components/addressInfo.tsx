@@ -1,4 +1,6 @@
-/*Component for collecting address information*/
+/*2nd Form Component for collecting address information*/
+
+/*Imports */
 import React, { MouseEvent } from "react";
 import {
   UserAddressContext,
@@ -23,11 +25,13 @@ export function UserAddressScreen({
 }: UserAddressScreenProps) {
   const initialValues: UserAddressContext = {
     street1: state.context.userAddress?.street1 ?? "",
-    street2: state.context.userAddress?.street2,
+    street2: state.context.userAddress?.street2, //this is an optional field
     city: state.context.userAddress?.city ?? "",
     state: state.context.userAddress?.state ?? "",
     zip: state.context.userAddress?.zip ?? "",
   };
+  /*Helper function for back button
+   *TODO: make this a util to reduce redundancy */
   const handleMouseEvent = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onClick({

@@ -1,3 +1,4 @@
+/*Imports */
 import { SubmittedTypestate } from "../../machines/machine";
 
 export interface SubmittedScreenProps {
