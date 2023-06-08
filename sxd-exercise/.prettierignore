@@ -1,7 +1,6 @@
 # Ignore artifacts:
 build
 coverage
-# dependencies
 /node_modules
 /.pnp
 .pnp.js
