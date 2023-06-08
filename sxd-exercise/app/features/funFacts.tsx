@@ -14,7 +14,7 @@ import {
     onSubmit(event: ConfirmFactsEvent): void;
   }
   
-  export function InfoForm({ state, onSubmit }: FactsFormProps) {
+  export function FactForm({ state, onSubmit }: FactsFormProps) {
     // Define the initial values of the form using machine context
     const initialValues: FactsContext = {
       favoriteMovie: state.context.facts?.favoriteMovie ?? "",
@@ -56,12 +56,24 @@ import {
            
           <Form className="form p-4">
           <div className="w-full flex flex col p-4">
-            <label className="font-bold text-gray-800 p-2" htmlFor="name">Favorite Movie </label>
-            <Field id="name" name="name" className="p-2 bg-gray-50 border border-gray-100" required />
+            <label className="font-bold text-gray-800 p-2" htmlFor="favoriteMovie">Favorite Movie </label>
+            <Field id="favoriteMovie" name="favoriteMovie" className="p-2 bg-gray-50 border border-gray-100" required />
             </div>
             <div className="w-full flex flex col p-4">
-            <label className="font-bold text-gray-800 p-2" htmlFor="email">Email </label>
-            <Field id="email" name="email" type="email" className="p-2 bg-gray-50 border border-gray-100" required />
+            <label className="font-bold text-gray-800 p-2" htmlFor="favoriteBook">Favorite Book </label>
+            <Field id="favoriteBook" name="favoriteBook" className="p-2 bg-gray-50 border border-gray-100" required />
+            </div>
+            <div className="w-full flex flex col p-4">
+            <label className="font-bold text-gray-800 p-2" htmlFor="personalityType">Personality Type </label>
+            <Field id="personalityType" name="personalityType" className="p-2 bg-gray-50 border border-gray-100" required />
+            </div>
+            <div className="w-full flex flex col p-4">
+            <label className="font-bold text-gray-800 p-2" htmlFor="zodiac">Zodiac Sign </label>
+            <Field id="zodiac" name="zodiac" className="p-2 bg-gray-50 border border-gray-100" required />
+            </div>
+            <div className="w-full flex flex col p-4">
+            <label className="font-bold text-gray-800 p-2" htmlFor="personalityType">Anyhing else to share: </label>
+            <Field id="extra" name="extra" className="p-2 bg-gray-50 border border-gray-100" required />
             </div>
             <button type="submit" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Next</button>
           </Form>

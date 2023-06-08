@@ -98,6 +98,7 @@ export interface SubmittedTypestate {
 export interface CheckoutTypestate {
   basicInfo: BasicInfoTypestate;
   shippingAddress: ShippingAddressTypestate;
+  facts: FactsTypestate;
   review: ReviewTypestate;
   submitted: SubmittedTypestate;
 }
@@ -139,12 +140,23 @@ export const checkoutMachine = createMachine<
             ...ctx,
             shippingAddress: evt.value
           })),
-          // Transition to the `review` state next
-          target: "review"
+          // Transition to the `facts` state next
+          target: "facts"
         }
       }
     },
-    // ...
+    facts: {
+        on: {
+          CONFIRM_FACTS: {
+            actions: assign((ctx, evt) => ({
+              ...ctx,
+              facts: evt.value
+            })),
+            // Transition to the `review` state next
+            target: "review"
+          }
+        }
+      },
     review: {
       on: {
         CONFIRM_REVIEW: {
