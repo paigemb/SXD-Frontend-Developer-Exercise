@@ -2,7 +2,8 @@
 import { useMachine } from "@xstate/react";
 import { RegisterMachine } from "../features/state";
 import { InfoForm } from "../features/userInfo";
-import { UserAddressScreen } from "../features/shippingInfo";
+import { UserAddressScreen } from "../features/addressInfo;
+import { TalentForm } from "../features/talent";
 import { ReviewScreen } from "../features/reviewScreen";
 import { SubmittedScreen } from "../features/submitedScreen";
 import { FactForm } from "../features/funFacts";
@@ -19,6 +20,11 @@ export function Register() {
   } else if (state.matches("facts")) {
     return (
       <FactForm state={state} onSubmit={(event) => send(event)} />
+    )
+  }
+  else if (state.matches("talent")) {
+    return (
+      <TalentForm state={state} onSubmit={(event) => send(event)} />
     )
   }
     else if (state.matches("review")) {

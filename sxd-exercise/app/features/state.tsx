@@ -25,13 +25,18 @@ export interface FactsContext {
     favoriteBook: string; //text input
     personalityType: string; //select input
     zodiac: string; //select input
-    extra?: string; //optional text input
+    felonies: string; //select input
+}
+
+export interface TalentContext {
+    talent: string; //text area input
 }
 
 export interface RegisterContext {
     basicInfo?: BasicInfoContext; 
     userAddress?: UserAddressContext;
     facts?: FactsContext;
+    talent?: TalentContext
   }
 ////////////////////////////////////
 // Events
@@ -49,7 +54,12 @@ export interface ConfirmUserAddressEvent {
 
 export interface ConfirmFactsEvent {
     type: "CONFIRM_FACTS";
-    value: FactsContext
+    value: FactsContext;
+}
+
+export interface ConfirmTalentEvent {
+    type: "CONFIRM_TALENT";
+    value: TalentContext;
 }
 
 
@@ -61,6 +71,7 @@ export type RegisterEvent =
   | ConfirmBasicInfoEvent
   | ConfirmUserAddressEvent
   | ConfirmFactsEvent
+  | ConfirmTalentEvent
   | ConfirmReviewEvent;
 
 ////////////////////////////////////
@@ -85,6 +96,11 @@ export interface FactsTypestate {
     context: RegisterContext & Required<Pick<RegisterContext, "userAddress">> & Required<Pick<RegisterContext, "basicInfo">>
 }
 
+export interface TalentTypestate {
+    value: "talent";
+    context: RegisterContext & Required<Pick<RegisterContext, "facts">> & Required<Pick<RegisterContext, "userAddress">> & Required<Pick<RegisterContext, "basicInfo">>
+}
+
 export interface ReviewTypestate {
   value: "review";
   context: Required<RegisterContext>;
@@ -100,6 +116,7 @@ export interface RegisterTypestate {
   userAddress: UserAddressTypestate;
   facts: FactsTypestate;
   review: ReviewTypestate;
+  talent: TalentTypestate;
   submitted: SubmittedTypestate;
 }
 
@@ -116,8 +133,8 @@ export const RegisterMachine = createMachine<
   context: {
     basicInfo: undefined,
     userAddress: undefined,
-    facts: undefined
-    // ...
+    facts: undefined,
+    talent: undefined
   },
   // Start at the basic info state
   initial: "basicInfo",
@@ -152,6 +169,18 @@ export const RegisterMachine = createMachine<
             actions: assign((ctx, evt) => ({
               ...ctx,
               facts: evt.value
+            })),
+            // Transition to the `talent` state next
+            target: "talent"
+          }
+        }
+      },
+      talent: {
+        on: {
+          CONFIRM_TALENT: {
+            actions: assign((ctx, evt) => ({
+              ...ctx,
+              talent: evt.value
             })),
             // Transition to the `review` state next
             target: "review"
