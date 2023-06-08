@@ -1,21 +1,26 @@
-/*Component for collecting shipping information*/
-
+/*Component for collecting address information*/
+import React, { MouseEvent } from 'react'
 import {
     UserAddressContext,
     UserAddressTypestate,
-    ConfirmUserAddressEvent
+    ConfirmUserAddressEvent,
+    ConfirmBasicInfoEvent,
+    BackEvent
   } from "../../machines/machine";
 
   import { Formik, Form, Field } from "formik";
+
   
   export interface UserAddressScreenProps {
     state: UserAddressTypestate;
     onSubmit(event: ConfirmUserAddressEvent): void;
+    onClick(event: BackEvent): void;
   }
   
   export function UserAddressScreen({
     state,
-    onSubmit
+    onSubmit,
+    onClick
   }: UserAddressScreenProps) {
     const initialValues: UserAddressContext = {
       street1: state.context.userAddress?.street1 ?? "",
@@ -24,6 +29,12 @@ import {
       state: state.context.userAddress?.state ?? "",
       zip: state.context.userAddress?.zip ?? ""
     };
+    const handleMouseEvent = (e: MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+        onClick({
+          type: "BACK",
+        });
+      }
   
     return (
       <div style={{
@@ -52,29 +63,45 @@ import {
             });
           }}
         >
-          <Form className="form p-4">
-            <div className="w-full flex flex col p-4">
-                <label  className="font-bold text-gray-800 p-2" htmlFor="street1">Street</label>
-                <Field id="street1" name="street1" className="p-2 bg-gray-50 border border-gray-100" required />
+          <Form>
+            <div className="form w-full flex p-4">
+              <div className= "p-4">
+                  <label  className="font-bold text-gray-800 p-2" htmlFor="street1">Street 1</label>
+                  <Field id="street1" name="street1" className="p-2 bg-gray-50 border border-gray-100" required />
+              </div>
+
+              <div className="p-4">
+              <label  className="font-bold text-gray-800 p-2" htmlFor="street2">Street 2</label>
+              <Field id="street2" name="street2" className="p-2 bg-gray-50 border border-gray-100" />
+              </div>
+      </div>
+      <div className="w-full flex p-4">
+              <div className="p-4">
+              <label className="font-bold text-gray-800 p-2" htmlFor="city">City</label>
+              <Field id="city" name="city" className="p-2 bg-gray-50 border border-gray-100" required />
+              </div>
+
+              <div className="p-4">
+              <label className="font-bold text-gray-800 p-2" htmlFor="state">State</label>
+              <Field id="state" name="state" className="p-2 bg-gray-50 border border-gray-100" required />
+              </div>
+              </div> 
+              <div className="text-center p-4">
+
+              <label className="font-bold text-gray-800 p-2" htmlFor="zipcode">Zipcode</label>
+              <Field id="zip" name="zip" className="p-2 bg-gray-50 border border-gray-100" required />
+         
             </div>
-            <div className="w-full flex flex col p-4">
-            <label  className="font-bold text-gray-800 p-2" htmlFor="street2">Street 2</label>
-            <Field id="street2" name="street2" className="p-2 bg-gray-50 border border-gray-100" />
-</div>
-<div className="w-full flex flex col p-4">
-            <label  className="font-bold text-gray-800 p-2" htmlFor="city">City</label>
-            <Field id="city" name="city" className="p-2 bg-gray-50 border border-gray-100" required />
-</div>
-<div className="w-full flex flex col p-4">
-            <label  className="font-bold text-gray-800 p-2" htmlFor="state">State</label>
-            <Field id="state" name="state" className="p-2 bg-gray-50 border border-gray-100" required />
-</div>
-<div className="w-full flex flex col p-4">
-            <label  className="font-bold text-gray-800 p-2" htmlFor="zipcode">Zipcode</label>
-            <Field id="zip" name="zip" className="p-2 bg-gray-50 border border-gray-100" required />
+          <div className='p-8'>
+            <div className="float-left  ">
+            <button type="button" onClick={handleMouseEvent}className=" px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4 p-6">Back</button>
             </div>
-            <button type="button" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Back</button>
-            <button type="submit" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Next</button>
+            <div className="float-right  ">
+            <button type="submit" className=" px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4 p-6">Next</button>
+            </div>
+          </div>
+        
+
           </Form>
         </Formik>
       </div>

@@ -3,22 +3,31 @@
 import {
     TalentContext,
     TalentTypestate,
-    ConfirmTalentEvent
+    ConfirmTalentEvent,
+    BackEvent
   } from "../../machines/machine";
 
   import { Formik, Form, Field } from "formik";
-  
+  import React, { MouseEvent } from 'react'
 
   export interface InfoFormProps {
     state: TalentTypestate;
     onSubmit(event: ConfirmTalentEvent): void;
+    onClick(event: BackEvent): void;
   }
   
-  export function TalentForm({ state, onSubmit }: InfoFormProps) {
+  export function TalentForm({ state, onSubmit, onClick }: InfoFormProps) {
     // Define the initial values of the form using machine context
     const initialValues: TalentContext = {
       talent: state.context.talent?.talent ?? "",
     };
+
+    const handleMouseEvent = (e: MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+        onClick({
+          type: "BACK",
+        });
+      }
   
     return (
       <div style={{
@@ -49,11 +58,17 @@ import {
           <Form className="form p-4">
           <div className="w-full flex flex col p-4">
 
-            <label className="font-bold text-gray-800 p-2" htmlFor="firstName"> </label>
-            <Field as="textarea" id="firstName" name="firstName" className="p-2 bg-gray-50 border border-gray-100" required />
+            <label className="font-bold text-gray-800 p-2" htmlFor="talent"> </label>
+            <Field as="textarea" id="talent" name="talent" className="p-2 bg-gray-50 border border-gray-100" required />
             </div>
-            <button type="button" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Back</button>
-            <button type="submit" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Next</button>
+            <div className='p-8'>
+            <div className="float-left  ">
+            <button type="button" onClick={handleMouseEvent}className=" px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4 p-6">Back</button>
+            </div>
+            <div className="float-right  ">
+            <button type="submit" className=" px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4 p-6">Next</button>
+            </div>
+          </div>
           </Form>
          
         </Formik>

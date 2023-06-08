@@ -1,14 +1,21 @@
-import { ReviewTypestate, ConfirmReviewEvent } from "../../machines/machine";
+import { ReviewTypestate, ConfirmReviewEvent, BackEvent } from "../../machines/machine";
 import { Formik, Form } from "formik";
 import { Fragment } from "react";
+import React, { MouseEvent } from 'react'
 
 export interface ReviewScreenProps {
   state: ReviewTypestate;
   onSubmit(event: ConfirmReviewEvent): void;
+  onClick(event: BackEvent): void;
 }
 
-export function ReviewScreen({ state, onSubmit }: ReviewScreenProps) {
- 
+export function ReviewScreen({ state, onSubmit, onClick }: ReviewScreenProps) {
+ const handleMouseEvent = (e: MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+        onClick({
+          type: "BACK",
+        });
+      }
   return (
     <div style={{
         position: "relative",
@@ -56,10 +63,14 @@ export function ReviewScreen({ state, onSubmit }: ReviewScreenProps) {
             <h4 className="font-bold text-gray-800 p-2 text-left">Felonies: {state.context.facts.felonies}</h4>
 
             <h4 className="font-bold text-gray-800 p-2 text-left">Talent Description: {state.context.talent.talent}</h4>
-
-          <button type="button" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Edit</button>
-          <button type="submit" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Submit</button>
-
+            <div className='p-8'>
+            <div className="float-left  ">
+            <button type="button" onClick={handleMouseEvent}className=" px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4 p-6">Back</button>
+            </div>
+            <div className="float-right  ">
+            <button type="submit" className=" px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4 p-6">Next</button>
+            </div>
+          </div>
           </div>
         </Form>
       </Formik>

@@ -1,6 +1,6 @@
 "use client";
 import { useMachine } from "@xstate/react";
-import { RegisterMachine } from "@/machines/machine";
+import { BackEvent, RegisterMachine } from "@/machines/machine";
 import { InfoForm } from "../components/userInfo";
 import { UserAddressScreen } from "../components/addressInfo";
 import { TalentForm } from "../components/talent";
@@ -15,20 +15,20 @@ export function Register() {
     return <InfoForm state={state} onSubmit={(event) => send(event)} />;
   } else if (state.matches("userAddress")) {
     return (
-      <UserAddressScreen state={state} onSubmit={(event) => send(event)} />
+      <UserAddressScreen state={state} onSubmit={(event) => send(event)} onClick={(event) => send(event)} />
     );
   } else if (state.matches("facts")) {
     return (
-      <FactForm state={state} onSubmit={(event) => send(event)} />
+      <FactForm state={state} onSubmit={(event) => send(event)} onClick={(event) => send(event)} />
     )
   }
   else if (state.matches("talent")) {
     return (
-      <TalentForm state={state} onSubmit={(event) => send(event)} />
+      <TalentForm state={state} onSubmit={(event) => send(event)}  onClick={(event) => send(event)}/>
     )
   }
     else if (state.matches("review")) {
-    return <ReviewScreen state={state} onSubmit={(event) => send(event)} />;
+    return <ReviewScreen state={state} onSubmit={(event) => send(event)} onClick={(event) => send(event)} />;
   } 
  
   else if (state.matches("submitted")) {

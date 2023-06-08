@@ -52,29 +52,27 @@ import {
         >
             
            
-          <Form className="form p-4">
-          <div className="w-full flex flex col p-4">
-
+          <Form >
+          <div className="form w-full flex flex col p-4">
+          <div className= "p-4" >
             <label className="font-bold text-gray-800 p-2" htmlFor="firstName">First Name </label>
             <Field id="firstName" name="firstName" className="p-2 bg-gray-50 border border-gray-100" required />
+            <label className="font-bold text-gray-800 p-2" htmlFor="age">Age </label>
+            <Field id="age" name="age" type="number" min={10} className="p-2 bg-gray-50 border border-gray-100" required />
+            
             </div>
 
-            <div className="w-full flex flex col p-4">
+            <div className= "p-4" >
+        
             <label className="font-bold text-gray-800 p-2" htmlFor="lastName">Last Name </label>
             <Field id="lastName" name="lastName" className="p-2 bg-gray-50 border border-gray-100" required />
-            </div>
-
-            <div className="w-full flex flex col p-4">
-            <label className="font-bold text-gray-800 p-2" htmlFor="age">Age </label>
-            <Field id="age" name="age" type="number" className="p-2 bg-gray-50 border border-gray-100" required />
-            </div>
-
-            <div className="w-full flex flex col p-4">
             <label className="font-bold text-gray-800 p-2" htmlFor="email">Email </label>
             <Field id="email" name="email" type="email" className="p-2 bg-gray-50 border border-gray-100" required />
             </div>
-
+            </div>
+          <div className="w-full col p-6">
             <button type="submit" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Next</button>
+            </div>
           </Form>
          
         </Formik>

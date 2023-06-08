@@ -3,27 +3,37 @@
 import {
     FactsContext,
     FactsTypestate,
-    ConfirmFactsEvent
+    ConfirmFactsEvent,
+    BackEvent
   } from "../../machines/machine";
 
   import { Formik, Form, Field } from "formik";
+  import React, { MouseEvent } from 'react'
   
 
   export interface FactsFormProps {
     state: FactsTypestate;
     onSubmit(event: ConfirmFactsEvent): void;
+    onClick(event: BackEvent): void;
   }
   
-  export function FactForm({ state, onSubmit }: FactsFormProps) {
+  export function FactForm({ state, onSubmit, onClick }: FactsFormProps) {
     // Define the initial values of the form using machine context
     const initialValues: FactsContext = {
       favoriteMovie: state.context.facts?.favoriteMovie ?? "",
       favoriteBook: state.context.facts?.favoriteBook ?? "",
-      personalityType: state.context.facts?.personalityType ?? "",
-      zodiac: state.context.facts?.zodiac ?? "",
-      felonies: state.context.facts?.felonies ?? "",
+      personalityType: state.context.facts?.personalityType ?? "ISTJ",
+      zodiac: state.context.facts?.zodiac ?? "Aries",
+      felonies: state.context.facts?.felonies ?? "One",
     };
-  
+
+    const handleMouseEvent = (e: MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+        onClick({
+          type: "BACK",
+        });
+      }
+    
     return (
       <div style={{
         position: "relative",
@@ -34,7 +44,7 @@ import {
         borderRadius: ".5rem",
         fontFamily: "Arial"}}>
 
-        <h1>Tell us more about you!</h1>
+        <h1>Here's your chance to tell us more about yourself!</h1>
 
         <Formik<FactsContext>
           initialValues={initialValues}
@@ -91,32 +101,38 @@ import {
             <div className="w-full flex flex col p-4">
             <label className="font-bold text-gray-800 p-2" htmlFor="zodiac">Zodiac Sign </label>
             <Field as="select" id="zodiac" name="zodiac" className="p-2 bg-gray-50 border border-gray-100" required >
-            <option value="aries">Aries</option>
-                <option value="taurus">Taurus</option>
-                <option value="gemini">Gemini</option>
-                <option value="cancer">Cancer</option>
-                <option value="leo">Leo</option>
-                <option value="virgo">Virgo</option>
-                <option value="libra">Libra</option>
-                <option value="scorpio">Scorpio</option>
-                <option value="sagittarius">Sagittarius</option>
-                <option value="capricorn">Capricorn</option>
-                <option value="aquarius">Aquarius</option>
-                <option value="pisces">Pisces</option>
-                <option value="unknown">I don't know</option>
+              <option value="aries">Aries</option>
+                <option value="Taurus">Taurus</option>
+                <option value="Gemini">Gemini</option>
+                <option value="Cancer">Cancer</option>
+                <option value="Leo">Leo</option>
+                <option value="Virgo">Virgo</option>
+                <option value="Libra">Libra</option>
+                <option value="Scorpio">Scorpio</option>
+                <option value="Sagittarius">Sagittarius</option>
+                <option value="Capricorn">Capricorn</option>
+                <option value="Aquarius">Aquarius</option>
+                <option value="Pisces">Pisces</option>
+                <option value="Unknown">I don't know</option>
             </Field>
             </div>
             <div className="w-full flex flex col p-4">
             <label className="font-bold text-gray-800 p-2" htmlFor="personalityType">Felonies </label>
             <Field as="select" id="felonies" name="felonies" className="p-2 bg-gray-50 border border-gray-100" required >
-                <option value="none">None</option>
-                <option value="one">Just one</option>
-                <option value="several">I lost count</option>
+                <option value="None">None</option>
+                <option value="One">Just one</option>
+                <option value="Several">I lost count</option>
                 </Field>
                 
             </div>
-            <button type="button" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Back</button>
-            <button type="submit" className="px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4">Next</button>
+            <div className='p-8'>
+            <div className="float-left  ">
+            <button type="button" onClick={handleMouseEvent}className=" px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4 p-6">Back</button>
+            </div>
+            <div className="float-right  ">
+            <button type="submit" className=" px-4 py-2 w-40 bg-gray-700 text-white font-medium mt-4 p-6">Next</button>
+            </div>
+          </div>
           </Form>
          
         </Formik>
