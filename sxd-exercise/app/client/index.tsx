@@ -15,23 +15,37 @@ export function Register() {
     return <InfoForm state={state} onSubmit={(event) => send(event)} />;
   } else if (state.matches("userAddress")) {
     return (
-      <UserAddressScreen state={state} onSubmit={(event) => send(event)} onClick={(event) => send(event)} />
+      <UserAddressScreen
+        state={state}
+        onSubmit={(event) => send(event)}
+        onClick={(event) => send(event)}
+      />
     );
   } else if (state.matches("facts")) {
     return (
-      <FactForm state={state} onSubmit={(event) => send(event)} onClick={(event) => send(event)} />
-    )
-  }
-  else if (state.matches("talent")) {
+      <FactForm
+        state={state}
+        onSubmit={(event) => send(event)}
+        onClick={(event) => send(event)}
+      />
+    );
+  } else if (state.matches("talent")) {
     return (
-      <TalentForm state={state} onSubmit={(event) => send(event)}  onClick={(event) => send(event)}/>
-    )
-  }
-    else if (state.matches("review")) {
-    return <ReviewScreen state={state} onSubmit={(event) => send(event)} onClick={(event) => send(event)} />;
-  } 
- 
-  else if (state.matches("submitted")) {
+      <TalentForm
+        state={state}
+        onSubmit={(event) => send(event)}
+        onClick={(event) => send(event)}
+      />
+    );
+  } else if (state.matches("review")) {
+    return (
+      <ReviewScreen
+        state={state}
+        onSubmit={(event) => send(event)}
+        onClick={(event) => send(event)}
+      />
+    );
+  } else if (state.matches("submitted")) {
     return <SubmittedScreen state={state} />;
   } else {
     throw new Error("Form has entered unknown state.");

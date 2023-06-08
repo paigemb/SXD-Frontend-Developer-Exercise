@@ -6,8 +6,8 @@ import { assign, createMachine } from "xstate";
 
 export interface BasicInfoContext {
   firstName: string; //text input
-  lastName: string //text input
-  age: string // number input
+  lastName: string; //text input
+  age: string; // number input
   email: string; //text input
 }
 
@@ -19,25 +19,24 @@ export interface UserAddressContext {
   zip: string; //text input
 }
 
-
 export interface FactsContext {
-    favoriteMovie: string; //text input
-    favoriteBook: string; //text input
-    personalityType: string; //select input
-    zodiac: string; //select input
-    felonies: string; //select input
+  favoriteMovie: string; //text input
+  favoriteBook: string; //text input
+  personalityType: string; //select input
+  zodiac: string; //select input
+  felonies: string; //select input
 }
 
 export interface TalentContext {
-    talent: string; //text area input
+  talent: string; //text area input
 }
 
 export interface RegisterContext {
-    basicInfo?: BasicInfoContext; 
-    userAddress?: UserAddressContext;
-    facts?: FactsContext;
-    talent?: TalentContext
-  }
+  basicInfo?: BasicInfoContext;
+  userAddress?: UserAddressContext;
+  facts?: FactsContext;
+  talent?: TalentContext;
+}
 ////////////////////////////////////
 // Events
 ////////////////////////////////////
@@ -53,15 +52,14 @@ export interface ConfirmUserAddressEvent {
 }
 
 export interface ConfirmFactsEvent {
-    type: "CONFIRM_FACTS";
-    value: FactsContext;
+  type: "CONFIRM_FACTS";
+  value: FactsContext;
 }
 
 export interface ConfirmTalentEvent {
-    type: "CONFIRM_TALENT";
-    value: TalentContext;
+  type: "CONFIRM_TALENT";
+  value: TalentContext;
 }
-
 
 export interface ConfirmReviewEvent {
   type: "CONFIRM_REVIEW";
@@ -92,18 +90,23 @@ export interface BasicInfoTypestate {
 
 export interface UserAddressTypestate {
   value: "userAddress";
-  //requires previous information 
+  //requires previous information
   context: RegisterContext & Required<Pick<RegisterContext, "basicInfo">>;
 }
 
 export interface FactsTypestate {
-    value: "facts";
-    context: RegisterContext & Required<Pick<RegisterContext, "userAddress">> & Required<Pick<RegisterContext, "basicInfo">>
+  value: "facts";
+  context: RegisterContext &
+    Required<Pick<RegisterContext, "userAddress">> &
+    Required<Pick<RegisterContext, "basicInfo">>;
 }
 
 export interface TalentTypestate {
-    value: "talent";
-    context: RegisterContext & Required<Pick<RegisterContext, "facts">> & Required<Pick<RegisterContext, "userAddress">> & Required<Pick<RegisterContext, "basicInfo">>
+  value: "talent";
+  context: RegisterContext &
+    Required<Pick<RegisterContext, "facts">> &
+    Required<Pick<RegisterContext, "userAddress">> &
+    Required<Pick<RegisterContext, "basicInfo">>;
 }
 
 export interface ReviewTypestate {
@@ -113,7 +116,11 @@ export interface ReviewTypestate {
 
 export interface BackTypestate {
   value: "back";
-  context: RegisterContext & Required<Pick<RegisterContext, "talent">> & Required<Pick<RegisterContext, "facts">> & Required<Pick<RegisterContext, "userAddress">> & Required<Pick<RegisterContext, "basicInfo">>
+  context: RegisterContext &
+    Required<Pick<RegisterContext, "talent">> &
+    Required<Pick<RegisterContext, "facts">> &
+    Required<Pick<RegisterContext, "userAddress">> &
+    Required<Pick<RegisterContext, "basicInfo">>;
 }
 
 export interface SubmittedTypestate {
@@ -145,7 +152,7 @@ export const RegisterMachine = createMachine<
     basicInfo: undefined,
     userAddress: undefined,
     facts: undefined,
-    talent: undefined
+    talent: undefined,
   },
   // Start at the basic info state
   initial: "basicInfo",
@@ -155,71 +162,71 @@ export const RegisterMachine = createMachine<
         CONFIRM_BASIC_INFO: {
           actions: assign((ctx, evt) => ({
             ...ctx,
-            basicInfo: evt.value
+            basicInfo: evt.value,
           })),
           // Transition to the `userAddress` state next
-          target: "userAddress"
-        }
-      }
+          target: "userAddress",
+        },
+      },
     },
     userAddress: {
       on: {
         CONFIRM_USER_ADDRESS: {
           actions: assign((ctx, evt) => ({
             ...ctx,
-            userAddress: evt.value
+            userAddress: evt.value,
           })),
           // Transition to the `facts` state next
-          target: "facts"
+          target: "facts",
         },
         BACK: {
-          target: "basicInfo"
-        }
-      }
+          target: "basicInfo",
+        },
+      },
     },
     facts: {
-        on: {
-          CONFIRM_FACTS: {
-            actions: assign((ctx, evt) => ({
-              ...ctx,
-              facts: evt.value
-            })),
-            // Transition to the `talent` state next
-            target: "talent"
-          },
-          BACK: {
-            target: 'userAddress'
-          }
-        }
+      on: {
+        CONFIRM_FACTS: {
+          actions: assign((ctx, evt) => ({
+            ...ctx,
+            facts: evt.value,
+          })),
+          // Transition to the `talent` state next
+          target: "talent",
+        },
+        BACK: {
+          target: "userAddress",
+        },
       },
-      talent: {
-        on: {
-          CONFIRM_TALENT: {
-            actions: assign((ctx, evt) => ({
-              ...ctx,
-              talent: evt.value
-            })),
-            // Transition to the `review` state next
-            target: "review"
-          },
-          BACK: {
-            target: 'facts'
-          }
-        }
+    },
+    talent: {
+      on: {
+        CONFIRM_TALENT: {
+          actions: assign((ctx, evt) => ({
+            ...ctx,
+            talent: evt.value,
+          })),
+          // Transition to the `review` state next
+          target: "review",
+        },
+        BACK: {
+          target: "facts",
+        },
       },
+    },
     review: {
       on: {
         CONFIRM_REVIEW: {
           // Transition to the `submitted` state next
-          target: "submitted"
+          target: "submitted",
         },
         BACK: {
-          target: 'talent'
-        }
-      }
+          target: "talent",
+        },
+      },
     },
     submitted: {
-      type: "final"
-    }
-  }
+      type: "final",
+    },
+  },
 });
