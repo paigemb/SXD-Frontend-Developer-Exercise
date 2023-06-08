@@ -52,7 +52,7 @@ export default function ContactForm() {
                     className="p-4 bg-gray-50 border border-gray-100" 
                     id="name" 
                     required 
-                    value={current.context.name} 
+                    //value={current.context.name} 
                     onChange={e => send({
                         type: "INPUT",
                         value: e.target.value
@@ -64,7 +64,7 @@ export default function ContactForm() {
                     className="p-4 bg-gray-50 border border-gray-100" 
                     id="email"
                     required
-                    value={current.context.email}
+                   // value={current.context.email}
                     onChange={e => send({
                         type: "INPUT",
                         value: e.target.value
