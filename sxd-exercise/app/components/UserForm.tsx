@@ -1,5 +1,12 @@
 import { StringMappingType } from "typescript";
 import { FormWrapper } from "./FormWrapper";
+import { updateMachine } from "@/machines/updateMachine";
+import { useMachine } from "@xstate/react"
+import { useEffect } from "react";
+import { UpdateStates } from "@/machines/updateMachine.types";
+
+
+
 
 type UserData = {
     firstName: string
@@ -12,6 +19,7 @@ type UserFormProps = UserData & {
 }
 
 export function UserForm ({firstName, lastName, age, updateFields}: UserFormProps) {
+
     return (
         <FormWrapper title= "User Details">
         <label>First Name</label>
